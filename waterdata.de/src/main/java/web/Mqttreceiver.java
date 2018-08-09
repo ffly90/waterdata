@@ -36,7 +36,13 @@ public class Mqttreceiver implements MqttCallback {
         String decodemess = new JSONObject(message.toString()).getString("payload_raw");
         byte[] decoded = Base64.getMimeDecoder().decode(decodemess);
         String output = new String(decoded);
-        System.out.println(output);
+        JSONObject dp = new JSONObject(output);
+        Data _d1 = new Data();
+        _d1.setSensor("pH");
+        _d1.setValue(Double.parseDouble(dp.getString("pH")));
+        _d1.setTimestamp();
+
+        System.out.println(dp);
     }
 
     @Override
