@@ -1,26 +1,26 @@
 package web;
 
-import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
-import org.eclipse.paho.client.mqttv3.MqttCallback;
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.*;
+import org.json.JSONObject;
 
 public class Mqttreceiver implements MqttCallback {
 
+    MqttConnectOptions options = new MqttConnectOptions();
     MqttClient client;
 
     public Mqttreceiver() {
     }
 
-    public static void main(String[] args) {
-        new Mqttreceiver().doDemo();
+  /*  public static void main(String[] args) {
+        new Mqttreceiver().getMessage();
     }
-
+*/
     public void getMessage() {
         try {
             client = new MqttClient("tcp://eu.thethings.network", "Sending");
-            client.connect();
+            options.setUserName("sus2018_waterdata_mqtt");
+            options.setPassword("ttn-account-v2.A1onZwjnWTPBUchbIi65cbdIfkYU4Msvao4wFuUWcRQ".toCharArray());
+            client.connect(options);
             client.setCallback(this);
             client.subscribe("sus2018_waterdata_mqtt/devices/waterdata_cata1/up");
         } catch (MqttException e) {
@@ -30,14 +30,13 @@ public class Mqttreceiver implements MqttCallback {
 
     @Override
     public void connectionLost(Throwable cause) {
-        // TODO Auto-generated method stub
-
+        System.out.println("error: connection lost");
     }
 
     @Override
-    public void messageArrived(String topic, MqttMessage message)
-            throws Exception {
-        System.out.println(message);
+    public void messageArrived(String topic, MqttMessage message) throws Exception {
+        JSONObject decodemess = new JSONObject(message.toString());
+        System.out.println(decodemess);
     }
 
     @Override
