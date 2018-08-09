@@ -9,8 +9,11 @@ import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "sensor", path = "sensor")
 public interface Database extends MongoRepository<Data, String> {
-    @RestResource(path = "current")
-    List<Data> findByTimestampNear(@Param("sensor") String sensor);
+    @RestResource(path = "sens")
+    List<Data> findBySensor(@Param("sensor") String sensor);
+    @RestResource(path = "timedec")
+    List<Data> findBySensorOrderByTimestamp(@Param("sensor") String sensor);
+    @RestResource(path = "period")
     List<Data> findBySensorAndTimestampBetween(@Param("period")String sensor,long timestamp1, long timestamp2);
 }
 

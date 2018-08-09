@@ -13,11 +13,9 @@ public class Data {
     public void setTimestamp(String dummy){
         timestamp = System.currentTimeMillis() / 1000L;
     }
-
     public long getTimestamp(){
         return timestamp;
     }
-
     public String getSensor() {
         return sensor;
     }

@@ -3,6 +3,8 @@ package web;
 import org.eclipse.paho.client.mqttv3.*;
 import org.json.JSONObject;
 
+import java.util.Base64;
+
 public class Mqttreceiver implements MqttCallback {
 
     MqttConnectOptions options = new MqttConnectOptions();
@@ -11,10 +13,6 @@ public class Mqttreceiver implements MqttCallback {
     public Mqttreceiver() {
     }
 
-  /*  public static void main(String[] args) {
-        new Mqttreceiver().getMessage();
-    }
-*/
     public void getMessage() {
         try {
             client = new MqttClient("tcp://eu.thethings.network", "Sending");
@@ -35,8 +33,10 @@ public class Mqttreceiver implements MqttCallback {
 
     @Override
     public void messageArrived(String topic, MqttMessage message) throws Exception {
-        JSONObject decodemess = new JSONObject(message.toString());
-        System.out.println(decodemess);
+        String decodemess = new JSONObject(message.toString()).getString("payload_raw");
+        byte[] decoded = Base64.getMimeDecoder().decode(decodemess);
+        String output = new String(decoded);
+        System.out.println(output);
     }
 
     @Override
