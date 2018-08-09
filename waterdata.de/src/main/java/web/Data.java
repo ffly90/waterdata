@@ -6,10 +6,13 @@ public class Data {
 
     @Id
     private String id;
-    private String sensor;
+    private String value;
 
-    public String getValue(sensor) {
-        return sensor;
+    public String getValue(String value) {
+        return value;
+    }
+    public String setValue(){
+        this.value = value;
     }
 
 }
