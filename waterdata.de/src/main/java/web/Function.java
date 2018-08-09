@@ -1,11 +1,11 @@
 package web;
 
-public class function {
+public class Function {
 
     private final long id;
     private final String content;
 
-    public function(long id, String content) {
+    public Function(long id, String content) {
         this.id = id;
         this.content = content;
     }
