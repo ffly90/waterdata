@@ -9,5 +9,4 @@ import java.util.List;
 @RepositoryRestResource(collectionResourceRel = "sensor", path = "sensor")
 public interface Database extends MongoRepository<Data, String> {
     List<Data> findBySensor(@Param("sensor") String sensor);
-
 }
