@@ -5,10 +5,13 @@ import org.springframework.data.annotation.Id;
 
 public class Data {
 
+
     @Id private String id;
     private String sensor;
     private double value;
     private long timestamp;
+    public String measureID;
+    
 
     public void setTimestamp(String dummy){
         timestamp = System.currentTimeMillis() / 1000L;

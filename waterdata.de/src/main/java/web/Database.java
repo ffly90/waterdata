@@ -15,7 +15,5 @@ public interface Database extends MongoRepository<Data, String> {
     List<Data> findBySensorOrderByTimestamp(@Param("sensor") String sensor);
     @RestResource(path = "period")
     List<Data> findBySensorAndTimestampBetween(@Param("period")String sensor,long timestamp1, long timestamp2);
-    @RestResource(path = "start")
-    startmeasure.start();
 }
 
