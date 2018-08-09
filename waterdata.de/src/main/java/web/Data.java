@@ -2,7 +2,6 @@ package web;
 
 import org.springframework.data.annotation.Id;
 
-
 public class Data {
 
 
@@ -11,7 +10,6 @@ public class Data {
     private double value;
     private long timestamp;
     public String measureID;
-
 
     public void setTimestamp(){
         timestamp = System.currentTimeMillis() / 1000L;
