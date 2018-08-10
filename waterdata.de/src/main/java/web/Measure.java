@@ -9,6 +9,15 @@ public class Measure {
     private long start;
     private long stop;
 
+    @Override
+    public String toString() {
+        return "Measure{" +
+                "id='" + id + '\'' +
+                ", start=" + start +
+                ", stop=" + stop +
+                '}';
+    }
+
     public void setStart(long ts_start){
         this.start = ts_start;
     }
@@ -20,5 +29,9 @@ public class Measure {
     }
     public long getStop() {
         return stop;
+    }
+
+    public String getId() {
+        return id;
     }
 }

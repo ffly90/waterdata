@@ -23,9 +23,8 @@ public class StartStopMeasure {
         Measure obj_mongo = new Measure();
         obj_mongo.setStart(System.currentTimeMillis() / 1000L);
         mongoOperation.save(obj_mongo,"measure");
-        System.out.println(obj_mongo);
         Meas_API_Start obj=new Meas_API_Start();
-        obj.setId("Asdf");
+        obj.setId(obj_mongo.getId());
         return obj;
     }
 }
