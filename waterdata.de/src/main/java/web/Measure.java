@@ -10,13 +10,13 @@ public class Measure {
     private long stop;
 
     public void setStart(long ts_start){
-        this.start = flag;
+        this.start = ts_start;
     }
     public long getStart(){
         return start;
     }
     public void setStop(long ts_stop) {
-        this.stop = flag;
+        this.stop = ts_stop;
     }
     public long getStop() {
         return stop;
