@@ -6,6 +6,16 @@ import org.springframework.data.annotation.Id;
 public class Measure {
 
     @Id private String id;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    private String state;
     private long start;
     private long stop;
 
