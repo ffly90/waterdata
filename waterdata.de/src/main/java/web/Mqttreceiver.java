@@ -5,10 +5,22 @@ import org.json.JSONObject;
 
 import java.util.Base64;
 
-public class Mqttreceiver implements MqttCallback {
-
+public class MqttReceiver implements MqttCallback {
+    String tmpl = "{\"temp\":27.25,\"pH\":\"3.703\"}";
+    Boolean use_tmpl=true;
     MqttConnectOptions options = new MqttConnectOptions();
     MqttClient client;
+
+    public static void main() {
+        if(use_tmpl) {
+            while(true) {
+                handleData(tmpl);
+                Thread.sleep(1000);
+            }
+        } else {
+
+        }
+    }
 
     public Mqttreceiver() {
     }
@@ -34,6 +46,9 @@ public class Mqttreceiver implements MqttCallback {
     @Override
     public void messageArrived(String topic, MqttMessage message) throws Exception {
         String decodemess = new JSONObject(message.toString()).getString("payload_raw");
+        handleData(decodemess);
+    }
+    public void handleData(String decodemess) {
         byte[] decoded = Base64.getMimeDecoder().decode(decodemess);
         String output = new String(decoded);
         JSONObject dp = new JSONObject(output);
