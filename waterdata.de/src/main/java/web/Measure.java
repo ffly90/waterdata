@@ -6,19 +6,19 @@ import org.springframework.data.annotation.Id;
 public class Measure {
 
     @Id private String id;
-    private boolean start;
-    private boolean stop;
+    private long start;
+    private long stop;
 
-    public void setStart(boolean flag){
+    public void setStart(long ts_start){
         this.start = flag;
     }
-    public boolean getStart(){
+    public long getStart(){
         return start;
     }
-    public void setStop(boolean flag) {
+    public void setStop(long ts_stop) {
         this.stop = flag;
     }
-    public boolean getStop() {
+    public long getStop() {
         return stop;
     }
 }
