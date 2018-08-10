@@ -11,9 +11,9 @@ public class Data {
     private double value;
     private long timestamp;
     public String measureID;
-    
 
-    public void setTimestamp(String dummy){
+
+    public void setTimestamp(){
         timestamp = System.currentTimeMillis() / 1000L;
     }
     public long getTimestamp(){
