@@ -11,9 +11,8 @@ public class RestControllerMeasure {
     @Autowired
     private Database2 datarepo;
 
-    @GetMapping("measure/all")
-    public MeasurementWithData mes(@Param("measureId") String mesId) {
-        return datarepo.test(mesId);
+    @GetMapping("measure/objectID")
+    public MeasurementWithData mes(@Param("objectId") String objectID) {
+        return datarepo.test(objectID);
     }
-
 }
