@@ -8,7 +8,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
 import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "sensor", path = "sensor")
-public interface Database extends MongoRepository<Data, String> {
+public interface Database extends MongoRepository<Data, String>{
     @RestResource(path = "sens")
     List<Data> findBySensor(@Param("sensor") String sensor);
     @RestResource(path = "timedec")

@@ -2,23 +2,32 @@ package web;
 
 import org.springframework.data.annotation.Id;
 
-
 public class Measure {
 
     @Id private String id;
-    private boolean start;
-    private boolean stop;
+    private long start;
+    private long stop;
+    private boolean running = false;
 
-    public void setStart(boolean flag){
-        this.start = flag;
+    public void setStart(long start){
+        setRunning(true);
+        this.start = System.currentTimeMillis() / 1000L;
     }
-    public boolean getStart(){
+    public long getStart(){
         return start;
     }
-    public void setStop(boolean flag) {
-        this.stop = flag;
+    public void setStop(long stop) {
+        setRunning(false);
+        this.stop = System.currentTimeMillis() / 1000L;
     }
-    public boolean getStop() {
+    public long getStop() {
         return stop;
+    }
+    public void setRunning(boolean flag){
+        this.running = true;
+    }
+
+    public boolean getRunning(){
+        return running;
     }
 }
