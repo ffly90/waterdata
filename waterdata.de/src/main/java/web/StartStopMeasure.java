@@ -41,14 +41,19 @@ public class StartStopMeasure {
         Meas_API_Stop obj=new Meas_API_Stop();
         return obj;
     }
- /*   @RequestMapping("/measurement/is_running")
-    public Meas_API_Start sta() {
-        Measure obj_mongo = new Measure();
-        obj_mongo.setStart(System.currentTimeMillis() / 1000L);
-        obj_mongo.setState("running");
-        mongoOperation.save(obj_mongo,"measure");
-        Meas_API_Start obj=new Meas_API_Start();
-        obj.setId(obj_mongo.getId());
+    @RequestMapping("/measurement/is_running")
+    public Meas_API_Is_Running run() {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("running").is(true));
+        Meas_API_Is_Running obj=new Meas_API_Is_Running();
+        Measure obj_mongo = mongoOperation.findOne(query,Measure.class,"measure");
+        if(obj_mongo != null) {
+            System.out.println(obj_mongo.toString());
+            obj.setId(obj_mongo.getId());
+            obj.setRunning(obj_mongo.getRunning());
+        } else {
+            obj.setRunning(false);
+        }
         return obj;
-    }*/
+    }
 }
