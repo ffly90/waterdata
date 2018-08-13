@@ -5,14 +5,16 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class RestControllerMeasure {
 
     @Autowired
-    private Database2 datarepo;
+    private Database2Custom datarepo;
 
     @GetMapping("measure/objectID")
-    public MeasurementWithData mes(@Param("objectId") String objectID) {
+    public List<Data> mes(@Param("id") String objectID) {
         return datarepo.test(objectID);
     }
 }

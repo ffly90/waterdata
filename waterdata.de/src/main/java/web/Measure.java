@@ -6,6 +6,17 @@ public class Measure {
 
     @Id private String id;
 
+    public Measure() {
+    }
+
+    public Measure(String id, String state, long start, long stop, boolean running) {
+        this.id = id;
+        this.state = state;
+        this.start = start;
+        this.stop = stop;
+        this.running = running;
+    }
+
     public String getState() {
         return state;
     }

@@ -12,7 +12,7 @@ public interface Database extends MongoRepository<Data, String>{
     @RestResource(path = "sens")
     List<Data> findBySensor(@Param("sensor") String sensor);
     @RestResource(path = "timedec")
-    List<Data> findBySensorOrderByTimestamp(@Param("sensor") String sensor);
+    List<Data> OrderByTimestampDesc();
     @RestResource(path = "period")
     List<Data> findBySensorAndTimestampBetween(@Param("period")String sensor,long timestamp1, long timestamp2);
 }

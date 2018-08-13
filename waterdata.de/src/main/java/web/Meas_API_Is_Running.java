@@ -5,7 +5,7 @@ public class Meas_API_Is_Running
     private String _error;
     private String id;
     private boolean running;
-    private String _okay;
+    private String _okay= "true";
     public String get_error ()
     {
         return _error;

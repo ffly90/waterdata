@@ -1,23 +1,35 @@
 package web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@Component
 public class Database2Impl implements Database2Custom {
-    private final MongoTemplate mongoTemplate;
 
     @Autowired
-    public Database2Impl(MongoTemplate mongoTemplate) {
-        this.mongoTemplate = mongoTemplate;
-    }
+    private MeasureRepo repo;
 
+    @Autowired
+    private Database dataRepo;
 
     @Override
-    public MeasurementWithData test(String measureId) {
-        MeasurementWithData mes = mongoTemplate.findOne(new Query(Criteria.where("id").is(measureId)), MeasurementWithData.class, "measure");
-        mes.setDataList(mongoTemplate.find(new Query(Criteria.where("measureId").is(measureId)), Data.class, "data"));
-        return mes;
+    public List<Data> test(String measureId) {
+
+        Optional<Measure> m = repo.findById(measureId);
+
+        List<Data> dataList = new ArrayList<>();
+
+        dataRepo.findAll().forEach(data -> {
+            if (data.getMeasureID().equals(measureId)) {
+                System.out.println("Added " + data.getId());
+                dataList.add(data);
+            }
+        });
+
+        return dataList;
     }
 }

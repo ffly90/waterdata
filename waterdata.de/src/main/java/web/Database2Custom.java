@@ -2,6 +2,8 @@ package web;
 
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface Database2Custom {
-    MeasurementWithData test (@Param("measureId") String measureId);
+    List<Data> test(@Param("measureId") String measureId);
 }

@@ -3,7 +3,7 @@ package web;
 public class Meas_API_Stop
 {
     private String _error;
-    private String _okay;
+    private String _okay = "true";
     public String get_error ()
     {
         return _error;

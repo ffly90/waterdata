@@ -30,6 +30,15 @@ public class Data {
     public void setValue(double value) {
         this.value = value;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getMeasureID() {
+        return measureID;
+    }
+
     @Override
     public String toString() {
         return "Data{" +
