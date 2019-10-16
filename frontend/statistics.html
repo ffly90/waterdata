@@ -1,0 +1,246 @@
+<html>
+<head>
+
+<title>Statistics</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" type="text/css" href="style.css"></link>
+
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/segment7" type="text/css" />
+
+
+<script src="jquery.min.js"></script>
+<script src="Chart.bundle.js"></script>
+<script src="gauge.min.js"></script>
+
+<script src="moment.js"></script>
+
+<!--<script src="drawStatistic.js"></script>-->
+
+
+<script>
+
+	$( document ).ready(function() {
+		 /* Get from elements values */
+		/*
+		$.ajax({
+        url: "https://api.waterdata.de/sensor/search/findBySensor.php?sensor=temp",
+        type: "get",
+        success: function (response) {
+           // you will get response from your php page (what you echo or print)                 
+			alert(response);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+           console.log(textStatus, errorThrown);
+        }
+
+
+		});*/
+	
+		/*$(".menu-entry").click(function () {
+			toggleMenu();
+		});*/
+		
+		
+		/*$(window).scroll(function () {
+			if ($(window).scrollTop() < window.innerHeight) {
+				if (window.innerWidth >= 600) {
+					$("#parallax div").css("transform", "translateY(-" + 3 * ($(window).scrollTop() / window.innerHeight) + "px) scale(" + (1 - 0.6 * ($(window).scrollTop() / window.innerHeight)) + ") rotate(" + 360 * ($(window).scrollTop() / window.innerHeight) + "deg)");
+				}
+				$("#parallax div").css("color", "rgb(" + Math.floor(255 * ($(window).scrollTop() / window.innerHeight)) + "," + Math.floor(165 * ($(window).scrollTop() / window.innerHeight)) + ",0)");
+				$("#parallax").css("background","none").css("transform", "translateY(-" + 20 * ($(window).scrollTop() / window.innerHeight) + "vh)").css("box-shadow", "none");
+				$("#hamburger").css("color", "rgb(" + Math.floor(255 * ($(window).scrollTop() / window.innerHeight)) + "," + Math.floor(165 * ($(window).scrollTop() / window.innerHeight)) + ",0)").css("font-size", (60 - 20 * ($(window).scrollTop() / window.innerHeight)) + "px");
+				$(".menu-header").css("transform", "scale(" + (1 - 0.2 * ($(window).scrollTop() / window.innerHeight)) + ")");
+				if (window.innerWidth < 600) {
+					$("#parallax div").css("transform", "translateY(-" + 3 * ($(window).scrollTop() / window.innerHeight) + "px) scale(" + (1 - 0.6 * ($(window).scrollTop() / window.innerHeight)) + ")");
+					$("#parallax").css("padding-top", (50 - 50 * ($(window).scrollTop() / window.innerHeight)) + "px");
+				}
+			} else {
+				if (window.innerWidth < 600) {
+					$("#parallax div").css("transform", "translateY(-3px) scale(0.4)");
+				} else {
+					$("#parallax div").css("transform", "translateY(-3px) rotate(360deg) scale(0.4)");
+				}
+				$("#parallax").css("background-color", "rgba(0,0,0,0.85)").css("transform", "translateY(-20vh)").css("box-shadow", "-10px 5px 5px -5px orange");
+			}
+		});*/
+		
+		function toggleMenu() {
+			$(".slideIn").toggleClass("hidden");
+			$(".menu-header").toggleClass("false");
+			$(".all").toggleClass("taint");
+			$('body').toggleClass('stop-scrolling');
+		}
+		
+		/*$(".image").mousemove(function(e) {
+			var ax = -($(this).offset().left + ($(this).width() /2 - e.pageX))/30;
+  			var ay = -($(this).offset().top + ($(this).height()/2 - e.pageY))/5;
+  			$(this).attr("style", "transform: rotateY("+ax+"deg) rotateX("+ay+"deg);-webkit-transform: rotateY("+ax+"deg) rotateX("+ay+"deg);-moz-transform: rotateY("+ax+"deg) rotateX("+ay+"deg)");
+		});*/
+		/*$(document).mouseup(function(e){
+			var container = $(".slideIn");
+			var ham = $("#hamburger");
+			
+
+			// if the target of the click isn't the container nor a descendant of the container
+			if (!container.is(e.target) && container.has(e.target).length === 0 && !ham.is(e.target)) 
+			{
+				if (!$(".slideIn").hasClass("hidden")) {
+					$(".slideIn").toggleClass("hidden");
+					
+					$(".all").toggleClass("taint");
+					
+					$('body').toggleClass('stop-scrolling');
+					
+				}
+			}
+		});*/
+		$("#hamburger").click(function() {
+			toggleMenu();
+		});
+		
+		/*$("#liveData").click(function () {
+			$('html, body').animate({ scrollTop: $("#livedata").offset().top - 100 }, 1000);
+		});*/
+		$("#home").click(function () {
+			$('html, body').animate({ scrollTop: $("#homeDest").offset().top }, 1000);
+		});
+		$("#about").click(function () {
+			$('html, body').animate({ scrollTop: $("#aboutDest").offset().top }, 2000);
+		});
+		$("#statistics").click(function () {
+			localStorage["id"] = "";
+		});
+		
+	});
+
+</script>
+
+
+
+</head>
+<body>
+<script src="getData.js"></script>
+<header id="homeDest" style="width: 100%; height: 100px; ">
+</header>
+
+
+
+
+<div style="">
+	<div id="hamburger"><img src="hamMenu.png" style="padding: 23px 20px; width: 50px; height: 50px;"></img></div>
+	<div id="parallax" >
+		<div id="parallaxtext">
+			<img src="logo.png" style="height: 100%; position: relative; left: 0px;" /> <!-- -8px -->
+		</div>
+	</div>
+	<div class="all" style="position: fixed; z-index: 4; height: 100%; width: 100%; top: 0px; left: 0px;"></div>
+	<div class="slideIn hidden">
+		<div class="menu-header-line" style="position: absolute; border-bottom: 2px gray solid; top: 110px; width: 100%;"></div>
+		<div class="menu-header false" style="color: white;">
+			<!--<h1 style="">WATERDATA</h1>-->
+			<!--<span style="">kob.de</span>-->
+			<!--<img src="logo.png" style="height: 80px; padding-top: 10px;" />-->
+		</div>
+		<div class="entries" style="height: 50px; width: 100%; margin-top: 140px; text-align: left;">
+			<a id="liveData" class="menu-entry" href="index.html" style="display: inline-block; width: 100%;">
+				<div><img src="house.png" align="left" style="padding: 20px 40px 20px 20px;" ><h1 style="display: inline; ">Live Data</h1>
+				</div>
+			</a>
+			<a id="statistics" class="menu-entry" href="statistics.html" style="display: inline-block; width: 100%;">
+				<div><img src="statistics.png" align="left" style="padding: 20px 40px 20px 20px;" ><h1 style="display: inline; ">Statistics</h1>
+				</div>
+			</a>
+			<a id="history" class="menu-entry" href="history.html" style="display: inline-block; width: 100%;">
+				<div><img src="history.png" align="left" style="padding: 20px 40px 20px 20px;" ><h1 style="display: inline; ">History</h1>
+				</div>
+			</a>
+			<a id="about" class="menu-entry" href="about.html" style="display: inline-block; width: 100%;">
+				<div><img src="about.png" align="left" style="padding: 20px 40px 20px 20px;" ><h1 style="display: inline; ">About</h1>
+				</div>
+			</a>
+		</div>
+	</div>
+</div>
+
+
+<div id="livedata1" class="diagrams" style="padding: 50px 30vw; height: 100px;">
+	<div style="border-bottom: 1px solid #267b9f; text-align: center;">
+		<h1 style="font-size: 40px; color: #267b9f; margin: 10px;">Statistics</h1>
+	</div>
+	<div style="text-align: left; padding-top: 60px; font-size: 30px; color: #267b9f;">Temperature<span id="iddisplay" style="float: right; font-weight: bold; "></span></div>
+	<div style="text-align: center; padding-top: 20px;">
+		<canvas id="myChart1" width="400" height="200"></canvas>
+	</div>
+	<!--<div>
+		<table style="width: 100%; text-align: center; font-size: 20px; padding: 30px 0px 70px 0px;"><tr><td id="tempMax">Max: 28&deg;</td><td id="tempMin">Min: 25&deg;</td><td id="tempAvg">Avg: 26&deg;</td></tr></table>
+	</div>-->
+	
+	<!-- ph -->
+	<!--<div style="border-bottom: 1px solid #267b9f; text-align: center; padding-top: 100px;">
+		<h1 style="font-size: 40px; color: #267b9f; margin: 10px;">pH</h1>
+	</div>-->
+	<div style="text-align: left; padding-top: 30px; font-size: 30px; color: #267b9f;">pH</div>
+	<div style="text-align: center; padding-top: 20px; ">
+		<canvas id="myChart2" width="400" height="200"></canvas>
+	</div>
+	<!--<div style="padding-bottom: 0px;">
+		<table style="width: 100%; text-align: center; font-size: 20px; padding: 30px 0px 70px 0px;"><tr><td id="phMax">Max: 10.4</td><td id="phMin">Min: 5.4</td><td id="phAvg">Avg: 7.0</td></tr></table>
+	</div>-->
+		
+		
+		
+		<!-- Tabelle für alle Messwerte -->
+		<!--<table id="staticTable" style="width: 100%; text-align: left; margin-bottom: 100px; font-size: 20px;">
+		<thead>
+		<th>Timestamp</th>
+		<th>Temperature</th>
+		<th>pH</th>
+		</thead>
+		<tbody id="staticTableBody">
+			<!--<tr><td>8743852</td><td>25&deg;</td><td>7.5</td></tr>-->
+		<!--</tbody>
+		</table>-->
+		<script>
+			
+			
+		var dataTemp;
+		var dataPH;
+		
+		if (localStorage["id"] == "" || localStorage["id"] == null) {
+			getData(-1);
+			$("#iddisplay").html("Recent data");
+		} else {
+			var foo = localStorage["id"];
+			
+			
+			//alert(foo);
+			
+			
+			//localStorage["id"] = "";
+			$("#iddisplay").html(foo);
+			//call drawing with id
+			
+			//TODO: change id //done
+			getData(foo);
+		}
+		
+			
+		</script>
+		
+		
+</div>
+
+
+<!--<div class="dateSelection" style="padding: 200px 30vw 50px 30vw; height: 100px;">
+	<select>
+		<option value="volvo">Volvo</option>
+		<option value="saab">Saab</option>
+		<option value="mercedes">Mercedes</option>
+		<option value="audi">Audi</option>
+	</select> 
+</div>-->
+
+</body>
+</html>

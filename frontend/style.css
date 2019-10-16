@@ -1,0 +1,248 @@
+/*
+Theme Name: Mind Mappy
+Theme URI: https://neinkob.de
+Author: Jakob Gietl
+Author URI: https://neinkob.de
+Description: A Neinkob Theme
+Text Domain: mindmappy
+*/
+
+@font-face {
+    font-family: 'newFont';
+    src: url('AGENCYR.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Neuropolitical';
+	src: url('neuropolitical.regular.ttf');
+}
+@font-face {
+	font-family: 'Mysteries of Passion Personal U';
+	src: url('mysteries.ttf');
+}
+@font-face {
+	font-family: 'Mistral';
+	src: url('mistral.ttf');
+}
+@font-face {
+	font-family: 'Malgun Gothic Semilight';
+	src: url('malgun.ttf');
+}
+body, html, #page {
+	height: 100%;
+	width: 100%;
+	margin: 0; padding: 0;
+    font-family: 'newFont';
+}
+header {
+	background-position: center center;
+	background-size: cover;
+	background-color: white;
+}
+/*.menu-entry {
+	border-bottom: 1px solid white;
+}
+.menu-entry:last-of-type {
+	border-bottom: 0 solid black;
+}*/
+a {
+	color: white;
+	outline: 0;
+	text-decoration: none;
+	cursor: pointer;
+}
+#hamburger:hover {
+	/*text-shadow: 1px 1px 2px white,
+				-1px -1px 2px white, 
+				1px -1px 2px white,
+				-1px 1px 2px white;*/
+	cursor: pointer;
+}
+.slideIn a:hover > h1 {
+	letter-spacing: 25px;
+	transition: all 1s;
+}
+.slideIn a h1 {
+	transition: all 1s;
+	display: inline-block; 
+	color: #267b9f;
+	font-size: 40px; 
+    font-family: 'newFont';
+	line-height: 80px; 
+	width: 100%;
+}
+.text {
+	background: black; color: white; padding: 10% 20% 10% 15%; z-index: 2; position: relative; top: 0px;
+	font-size: 25px; line-height: 25px;
+	min-height: calc(100vh - 20%);
+	margin-bottom: 100vh;
+}
+.text::first-letter {
+	font-size: 90px; line-height: 50px; float: left; padding: 8px 5px 5px 0px; font-family: newFont;
+}
+.slideIn {
+	width: 400px;
+	height: 100%;
+	background: rgba(255,255,255,1);
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 4;
+	display: block;
+	transition: all 0.5s;
+}
+.hidden {
+	left: -400px;
+	transition: all 0.5s;
+}
+#parallax {
+	background: none;
+	height: 90px;
+	position: absolute;
+	top: 0px;
+	padding-top: 0px;
+	width: 100%;
+	text-align: center;
+	position: fixed;
+	z-index: 3;
+	color: black;
+}
+#parallaxtext {
+	height: 100%;
+	padding: 10px 0px;
+	position: relative;
+	z-index: 8;
+	background: white;
+	border-bottom: 2px gray solid; 
+}
+#parallaxtext h1{
+	margin: 0; padding: 0;
+	line-height: 80px; font-size: 80px; margin: 0; font-weight: bolder;
+}
+#parallaxtext span{
+	font-size: 24px; line-height: 24px; 
+}
+#hamburger {
+	position: fixed; top: 0px; font-size: 60px; font-weight: bolder; outline: none; 
+	padding: 9px 20px 10px 20px; color: black; z-index: 100;
+}
+/*.menu-header h1 {
+	position: fixed;z-index: 9; left: 200px; transform: translate(-50%);
+}*/
+.menu-header img {
+	position: fixed; z-index: 9; transform: translate(-50%);
+	left: 200px;
+}
+.menu-header span {
+	position: fixed; z-index: 9; left: 200px; transform: translate(-50%); top: 55px;
+}
+
+@media screen and (max-width: 800px) {
+	#parallaxtext h1 {
+		font-size: 60px;
+		line-height: 60px;
+	}
+	#parallax {
+		height: 60px;
+		/*padding-top: 50px;*/
+	}
+	#hamburger {
+		top: -8px;
+		padding-top: 0px;
+		padding-left: 6px;
+	}
+	.text {
+		padding-top: 22%;
+	}
+	.slideIn {
+		width: 100%;
+	}
+	.hidden {
+		left: -100%;
+	}
+	/*.menu-header h1, .menu-header span {
+		left: 50%; transform: translateY(-7px) translateX(-50%);
+	}*/
+	.menu-header-line {
+		top: 80px !important;
+	}
+	.entries {
+		margin-top: 100px !important;
+	}
+	.menu-header img {
+		left: 50%; transform: translateX(-50%);
+		/*height: 60px !important;*/
+	}
+	
+	.diagrams {
+		padding: 0px 50px !important;
+	}
+	.welcome {
+		width: 80%;
+		background-size: 100% auto !important;
+	}
+}
+/*@media screen and (max-width: 1000px) {
+	.diagrams {
+		padding: 0px 50px !important;
+	}
+}*/
+.welcome {
+	height: 80vh; 
+	width: 100%; 
+	background: url('logoWithText.png'); 
+	background-size: auto 80%; 	
+	background-position: center center; 
+	background-repeat: no-repeat;
+}
+.all {
+	display: none;
+}
+.taint {
+	display: block;
+	background-color: rgba(0,0,0,0.8);
+}
+.false {
+	display: none;
+}
+.white {
+	color: white !important;
+}
+.stop-scrolling {
+	height: 100%;
+	overflow: hidden;
+}
+#table .tableRow:hover {
+	background: rgba(38,123,159, 0.5);
+	cursor: pointer;
+}
+#startStop {
+	width: 80%; margin: 0px 10% 100px 10%; height: 50px; background-color: #267b9f; color: white; border: none; 
+	font-family: 'newFont';
+	font-size: 30px;
+}
+#startStop:hover {
+	background-color: #174b61;
+	cursor: pointer;	
+}
+
+
+@media screen and (max-width: 800px) {
+	#table {
+		font-size: 19px !important;
+	}
+}
+@media screen and (max-width: 500px) {
+	#table {
+		font-size: 17px !important;
+	}
+}
+
+
+.p {
+  text-align: center;
+  padding-top: 140px;
+  font-size: 14px;
+}
+#aboutText h1 {
+	color: #267b9f;
+}

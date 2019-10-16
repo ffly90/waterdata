@@ -2,17 +2,56 @@
 <head>
 
 <title>Waterdata</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
 <link rel="stylesheet" type="text/css" href="style.css"></link>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
-<script src="https://bernii.github.io/gauge.js/dist/gauge.min.js"></script>
+
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/segment7" type="text/css" />
+
+
+<script src="jquery.min.js"></script>
+<script src="Chart.bundle.js"></script>
+<script src="gauge.min.js"></script>
+<script src="request.js"></script>
+<script src="md5.js"></script>
 
 <script>
 
 	$( document ).ready(function() {
+		myRequest("https://api.waterdata.de/measurement/is_running", function(response) {
+				var isRunning = response.running;
+				//alert(isRunning);
+				if (isRunning) {
+					$("#startStop").html("Stop Measurement");
+				} else {
+					$("#startStop").html("Start Measurement");
+				}
+			});
+		//var isRunning = "true";
+		//alert(isRunning);
+		
+		 
+		 /* Get from elements values */
+		/*
+		$.ajax({
+        url: "https://api.waterdata.de/sensor/search/findBySensor.php?sensor=temp",
+        type: "get",
+        success: function (response) {
+           // you will get response from your php page (what you echo or print)                 
+			alert(response);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+           console.log(textStatus, errorThrown);
+        }
+
+
+		});*/
+	
 		$(".menu-entry").click(function () {
 			toggleMenu();
 		});
+		
 		
 		/*$(window).scroll(function () {
 			if ($(window).scrollTop() < window.innerHeight) {
@@ -39,50 +78,114 @@
 		
 		function toggleMenu() {
 			$(".slideIn").toggleClass("hidden");
-			if (this.innerHTML == "❮") {
-				this.innerHTML = "&#9776;";
-			} else {
-				this.innerHTML = "&#10094;";
-			}
 			$(".menu-header").toggleClass("false");
 			$(".all").toggleClass("taint");
-			$("#hamburger").toggleClass("white");
 			$('body').toggleClass('stop-scrolling');
 		}
 		
-		$("#hamburger").click(function() {
-			toggleMenu();
-		});
 		/*$(".image").mousemove(function(e) {
 			var ax = -($(this).offset().left + ($(this).width() /2 - e.pageX))/30;
   			var ay = -($(this).offset().top + ($(this).height()/2 - e.pageY))/5;
   			$(this).attr("style", "transform: rotateY("+ax+"deg) rotateX("+ay+"deg);-webkit-transform: rotateY("+ax+"deg) rotateX("+ay+"deg);-moz-transform: rotateY("+ax+"deg) rotateX("+ay+"deg)");
 		});*/
-		$(document).mouseup(function(e){
+		/*$(document).mouseup(function(e){
 			var container = $(".slideIn");
 			var ham = $("#hamburger");
+			
 
 			// if the target of the click isn't the container nor a descendant of the container
 			if (!container.is(e.target) && container.has(e.target).length === 0 && !ham.is(e.target)) 
 			{
 				if (!$(".slideIn").hasClass("hidden")) {
 					$(".slideIn").toggleClass("hidden");
-					$(".menu-header").toggleClass("false");
+					
 					$(".all").toggleClass("taint");
-					$("#hamburger").toggleClass("orange");
+					
 					$('body').toggleClass('stop-scrolling');
-					ham.text("☰");
+					
 				}
 			}
+		});*/
+		$("#hamburger").click(function() {
+			toggleMenu();
 		});
-		$("#apps").click(function () {
-			$('html, body').animate({ scrollTop: $("#appsDest").offset().top + 100 }, 1000);
+		
+		$("#liveData").click(function () {
+			$('html, body').animate({ scrollTop: $("#livedata").offset().top - 100 }, 1000);
 		});
 		$("#home").click(function () {
 			$('html, body').animate({ scrollTop: $("#homeDest").offset().top }, 1000);
 		});
 		$("#about").click(function () {
 			$('html, body').animate({ scrollTop: $("#aboutDest").offset().top }, 2000);
+		});
+
+		
+		
+		//TODO: check !!!
+		
+		$("#startStop").click(function() {
+			$(this).css("background-color", "#267b9f");
+			
+			//password popup
+			var password = prompt("Enter in the password");
+			if (CryptoJS.MD5(password) == "455831477b82574f6bf871193f2f761d") {
+				//alert("erfolgreich");
+			
+			
+				if ($("#startStop").html() == "Start Measurement") {
+					myRequest("https://api.waterdata.de/measurement/is_running", function(response) {
+						var isRunning = response.running;
+						if (!isRunning) {
+							
+							//Send POST to Server: start
+							$.ajax({
+								url: "https://api.waterdata.de/measurement/start",
+								type: "post",
+								success: function(response) {										
+									if (response._okay == "true") {
+										alert("Daten wurden gesendet: Start");
+										$("#startStop").html("Stop Measurement");
+									} else {
+										alert("Start fehlgeschlagen");
+									}
+								},
+								error: function(jqXHR, textStatus, errorThrown) {
+									alert("Start fehlgeschlagen");
+								   console.log(textStatus, errorThrown);
+								}
+							});
+							
+						}
+					});
+				} else {
+					myRequest("https://api.waterdata.de/measurement/is_running", function(response) {
+						var isRunning = response.running;
+						if (isRunning) {
+						
+							//Send POST to Server: stop
+							$.ajax({
+								url: "https://api.waterdata.de/measurement/" + response.id + "/stop",
+								type: "post",
+								success: function(response) {										
+									if (response._okay == "true") {
+										alert("Daten wurden gesendet: Stop");
+										$("#startStop").html("Start Measurement");
+									} else {
+										alert("Start fehlgeschlagen");
+									}
+								},
+								error: function(jqXHR, textStatus, errorThrown) {
+									alert("Start fehlgeschlagen");
+								   console.log(textStatus, errorThrown);
+								}
+							});
+						}
+					});
+				}
+			} else {
+				alert("Falsches Password");
+			}
 		});
 		
 	});
@@ -95,74 +198,84 @@
 </head>
 <body>
 
-<header id="homeDest" style="width: 100%; height: 120px; ">
+<header id="homeDest" style="width: 100%; height: 100px; ">
 </header>
 
 
 
 
 <div style="">
-	<a id="hamburger">&#9776;</a>
+	<div id="hamburger"><img src="hamMenu.png" style="padding: 23px 20px; width: 50px; height: 50px;"></img></div>
 	<div id="parallax" >
 		<div id="parallaxtext">
-			<img src="logo.png" style="height: 100%;" />
+			<img src="logo.png" style="height: 100%; position: relative; left: 0px;" /> <!-- -8px -->
 		</div>
 	</div>
 	<div class="all" style="position: fixed; z-index: 4; height: 100%; width: 100%; top: 0px; left: 0px;"></div>
 	<div class="slideIn hidden">
+		<div class="menu-header-line" style="position: absolute; border-bottom: 2px gray solid; top: 110px; width: 100%;"></div>
 		<div class="menu-header false" style="color: white;">
 			<!--<h1 style="">WATERDATA</h1>-->
 			<!--<span style="">kob.de</span>-->
-			<img src="logo.png" style="height: 80px; padding-top: 10px;" />
+			<!--<img src="logo.png" style="height: 80px; padding-top: 10px;" />-->
 		</div>
-		<div style="height: 50px; width: 100%; margin-top: 140px; text-align: center;">
-			<a id="home" class="menu-entry" href="#home" style="display: inline-block; width: 100%;">
-				<h1>Item 1</h1>
+		<div class="entries" style="height: 50px; width: 100%; margin-top: 140px; text-align: left;">
+			<a id="liveData" class="menu-entry" href="#livedata" style="display: inline-block; width: 100%;">
+				<div><img src="house.png" align="left" style="padding: 20px 40px 20px 20px;" ><h1 style="display: inline; ">Live Data</h1>
+				</div>
 			</a>
-			<a id="apps" class="menu-entry" href="#apps" style="display: inline-block; width: 100%;">
-				<h1>Item 2</h1>
+			<a id="statistics" class="menu-entry" href="statistics.html" style="display: inline-block; width: 100%;">
+				<div><img src="statistics.png" align="left" style="padding: 20px 40px 20px 20px;" ><h1 style="display: inline; ">Statistics</h1>
+				</div>
 			</a>
-			<a id="about" class="menu-entry" href="#about" style="display: inline-block; width: 100%;">
-				<h1>Item 3</h1>
+			<a id="history" class="menu-entry" href="history.html" style="display: inline-block; width: 100%;">
+				<div><img src="history.png" align="left" style="padding: 20px 40px 20px 20px;" ><h1 style="display: inline; ">History</h1>
+				</div>
+			</a>
+			<a id="about" class="menu-entry" href="about.html" style="display: inline-block; width: 100%;">
+				<div><img src="about.png" align="left" style="padding: 20px 40px 20px 20px;" ><h1 style="display: inline; ">About</h1>
+				</div>
 			</a>
 		</div>
 	</div>
 </div>
-<div class="diagrams" style="padding: 0px 30vw; height: 100px;">
-<canvas id="myChart" width="400" height="200" style="width: 100%;"></canvas>
-<div class="legend" style="height: 200px; width: 100%;">
-	<h4 style="position: relative; left: 180px; bottom: 80px; width: 100px; font-size: 20px;" >10</h4>
-</div>
+
+
+<div class="welcome" style="">
+
 </div>
 
-<script>
-var ctx = document.getElementById("myChart").getContext('2d');
-var opts = {
-  angle: 0, // The span of the gauge arc
-  lineWidth: 0.14, // The line thickness
-  radiusScale: 1, // Relative radius
-  pointer: {
-    length: 0.46, // // Relative to gauge radius
-    strokeWidth: 0.015, // The thickness
-    color: '#000000' // Fill color
-  },
-  limitMax: false,     // If false, max value increases automatically if value > maxValue
-  limitMin: false,     // If true, the min value of the gauge will be fixed
-  colorStart: '#6FADCF',   // Colors
-  colorStop: '#8FC0DA',    // just experiment with them
-  strokeColor: '#E0E0E0',  // to see which ones work best for you
-  generateGradient: true,
-  highDpiSupport: true,     // High resolution support
-  
-};
-var target = document.getElementById("myChart"); // your canvas element
-var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
-gauge.maxValue = 3000; // set max gauge value
-gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
-gauge.animationSpeed = 52; // set animation speed (32 is default value)
-gauge.set(1825); // set actual value
 
-</script>
+
+
+<div id="livedata" class="diagrams" style="padding: 50px 30vw; height: 100px;">
+	<div style="border-bottom: 1px solid #267b9f; text-align: center;">
+		<h1 style="font-size: 40px; color: #267b9f; margin: 10px;">Temperature</h1>
+	</div>
+	<div style="text-align: center;">
+		<h1 id="temperature" style="font-family: 'Segment7Standard'; color: #267b9f; color: gray; font-weight: normal; font-size: 150px; font-style: italic; margin: 80px 0px 100px;">26&deg;</h1>
+	</div>
+	
+	
+	<div style="border-bottom: 1px solid #267b9f; text-align: center;">
+		<h1 style="font-size: 40px; color: #267b9f; margin: 10px;">pH</h1>
+	</div>
+	<canvas id="myChart" width="450" height="auto" style="width: 100%; padding-top: 50px;"></canvas>
+	<div class="legend" style="height: 100px; width: 100%;">
+		<h4 style="position: relative; left: 18%; bottom: 30%; font-size: 20px; float: left;" >0</h4>
+		<h4 id="currentPH" style="color: #267b9f; position: relative; left: 50%; transform: translateX(-15px); bottom: 30%; font-size: 25px; font-weight: bolder; float: left;">X</h4>
+		<h4 style="position: relative; right: 18%; bottom: 30%; font-size: 20px; float: right;">14</h4>
+	</div>
+	
+	
+	<button id="startStop" style="">Start Measurement</button>
+</div>
+
+<!--<p style="font-family: 'Mysteries of Passion Personal U', sans-serif; font-style: normal; font-weight: 400;">Test</p>-->
+
+<script src="loadData.js"></script>
+
+
 
 </body>
 </html>
